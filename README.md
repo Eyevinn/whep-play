@@ -13,28 +13,13 @@ Requirements:
 - Install additional dependencies using homebrew
 
 ```
-brew install gstreamer gst-plugins-bad libsoup@2 icu4c cmake gst-libav
+brew install gstreamer gst-plugins-bad libsoup@2 icu4c cmake
 ```
 
 ```
 cmake -DCMAKE_BUILD_TYPE=Release -G "Unix Makefiles" .
 make
 sudo make install
-```
-
-## Homebrew install
-
-It is available in our `eyevinn/tools` tap, install it by running this command.
-
-```
-brew install eyevinn/tools/whep-play
-```
-
-or
-
-```
-brew tap eyevinn/tools
-brew install whep-play
 ```
 
 ## Run
