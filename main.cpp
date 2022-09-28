@@ -86,12 +86,12 @@ std::vector<std::string> getPostOffer(CustomData* data)
 
     SoupMessage* msg = soup_message_new("POST", data->whepURL.c_str());
     soup_message_set_request(msg, "application/sdp", SOUP_MEMORY_STATIC, "", 0);
-    
+
     if (!msg) {
         printf("ERROR: NULL msg in getPostOffer()\n");
         exit(EXIT_FAILURE);
     }
-    guint statusCode = soup_session_send_message(session, msg);   
+    auto statusCode = soup_session_send_message(session, msg);   
 
     if (statusCode != 200 && statusCode != 201) {
         printf("(%d):%s\n", statusCode, msg->response_body->data);
