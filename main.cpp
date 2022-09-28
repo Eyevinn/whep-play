@@ -121,18 +121,9 @@ void patchAnswer(CustomData* data)
         printf("ERROR: when creating msg in patchAnswer()\n");
         exit(EXIT_FAILURE);
     }
-    GError* error = nullptr;
     const char* sdp = data->sdpAnswer.c_str();
 
     soup_message_set_request(msg, "application/sdp", SOUP_MEMORY_COPY, sdp, strlen(sdp));
-
-    if (error) {
-        printf("Failed patch generation: %s\n", error->message);
-        g_error_free(error);
-        g_object_unref(msg);
-        g_object_unref(session);
-    }
-
     auto statusCode = soup_session_send_message(session, msg);
 
     // Cleanup
@@ -140,10 +131,9 @@ void patchAnswer(CustomData* data)
     g_object_unref(session);
 
     if (statusCode != 204) {
-        printf("%s", "ERROR: ");
+        printf("(%d):%s\n", statusCode, msg->response_body->data);
+        exit(EXIT_FAILURE);
     }
-
-    printf("%i \n", statusCode);
 }
 
 int32_t main(int32_t argc, char** argv)
